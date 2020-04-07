@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link href="./images/favicon.ico" rel="icon" type="image/x-icon" />
+        <title>Heroes 3 Castle Select</title>
+
+        <!-- Bootstrap -->
+        <link href="css/bootstrap-4.3.1.css" rel="stylesheet">
+        <link rel="stylesheet" href="./css/main.css" />
+    </head>
+    <body>
+        <div class="main-content">
+            <div class="row text-center">
+                <div class="col-md-4">
+                    <div class="town">
+                        <img src="./images/towns/castle.jpg" alt="Castle" class="town-image" />
+                        <h3 class="town-name">Castle</h3>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="town">
+                        <img src="./images/towns/conflux.png" alt="Conflux" class="town-image" />
+                        <h3 class="town-name">Conflux</h3>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="town">
+                        <img src="./images/towns/Necropolis.png" alt="Necropolis" class="town-image" />
+                        <h3 class="town-name">Necropolis</h3>
+                    </div>
+                </div>
+            </div>
+            <div class="row text-center">
+                <div class="col-md-4">
+                    <div class="town">
+                        <img src="./images/towns/Dungeon.jpg" alt="Dungeon" class="town-image" />
+                        <h3 class="town-name">Dungeon</h3>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="town">
+                        <img src="./images/towns/Rampart.jpg" alt="Rampart" class="town-image" />
+                        <h3 class="town-name">Rampart</h3>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="town">
+                        <img src="./images/towns/Tower.jpg" alt="Tower" class="town-image" />
+                        <h3 class="town-name">Tower</h3>
+                    </div>
+                </div>
+            </div>
+            <div class="row text-center">
+                <div class="col-md-4">
+                    <div class="town">
+                        <img src="./images/towns/Fortress.png" alt="Fortress" class="town-image" />
+                        <h3 class="town-name">Fortress</h3>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="town">
+                        <img src="./images/towns/Stronghold.jpg" alt="Stronghold" class="town-image" />
+                        <h3 class="town-name">Stronghold</h3>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="town">
+                        <img src="./images/towns/Inferno.jpg" alt="Inferno" class="town-image" />
+                        <h3 class="town-name">Inferno</h3>
+                    </div>
+                </div>
+            </div>
+            <div class="results">
+                <div class="results-content">
+                    <div class="row">
+                        <div class="col-md-5 bg-warning versus-player">
+                            <h1 class="text-right" id="playerOneCastle">Inferno</h1>
+                        </div>
+                        <div class="col-md-2 text-center">
+                            <h1 style="background-image: url('images/versus.gif'); display: inline-block;">VS.</h1>
+                        </div>
+                        <div class="col-md-5 bg-danger versus-player">
+                            <h1 id="playerTwoCastle">Castle</h1>
+                        </div>
+                    </div>
+                    <div class="text-center mt-5">
+                        <button class="btn btn-primary" id="restart-button">Start Again</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- jQuery (necessary for Bootstrap's JavaScript plugins) --> 
+        <script src="js/jquery-3.3.1.min.js"></script>
+
+        <!-- Include all compiled plugins (below), or include individual files as needed --> 
+        <script src="js/popper.min.js"></script>
+        <script src="js/bootstrap-4.3.1.js"></script>
+        
+        <script>
+        $(document).ready(() => {
+            $('.results').css({ opacity: 0, "z-index": -20 });
+            $('.town').on('click', function() {
+                $(this).toggleClass('banned');
+                checkRemaining();
+            });
+            $("#restart-button").on('click', function() {
+                $('.results').css({ opacity: 0, "z-index": -20 });
+                $('.town').removeClass('banned');
+            });
+        });
+        function checkRemaining() {
+            let remaining = [];
+            $('.town').each((index, element) => {
+                if(!$(element).hasClass('banned'))
+                    remaining.push($(element)[0].innerText);
+            });
+            if (remaining.length == 2)
+            {
+                let random = Math.floor(Math.random() * 100);
+//                alert(random);
+                if (random < 50)
+                {
+                    $('#playerOneCastle').text(remaining[0]);
+                    $('#playerTwoCastle').text(remaining[1]);
+                }
+                else
+                {
+                    $('#playerOneCastle').text(remaining[1]);
+                    $('#playerTwoCastle').text(remaining[0]);
+                }
+                $('.results').css({ "z-index": 1 });
+                $('.results').animate({ opacity: 1 });
+            }
+        }
+        </script>
+    </body>
+</html>
